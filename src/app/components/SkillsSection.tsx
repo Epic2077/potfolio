@@ -13,8 +13,8 @@ const CATEGORIES: Category[] = [
       { name: 'React.js', level: 97, color: '#61DAFB' },
       { name: 'Next.js', level: 95, color: '#4F8EF7' },
       { name: 'TypeScript', level: 93, color: '#3178C6' },
+      { name: 'JavaScript', level: 97, color: '#c3c631' },
       { name: 'Tailwind CSS', level: 96, color: '#06B6D4' },
-      { name: 'Framer Motion', level: 88, color: '#7C3AED' },
       { name: 'HTML / CSS', level: 99, color: '#E34F26' },
     ],
   },
@@ -23,10 +23,11 @@ const CATEGORIES: Category[] = [
     icon: '🔧',
     skills: [
       { name: 'Node.js', level: 78, color: '#68A063' },
-      { name: 'Express.js', level: 75, color: '#A8ABBE' },
+      { name: 'Express.js', level: 45, color: '#A8ABBE' },
       { name: 'REST APIs', level: 88, color: '#4F8EF7' },
-      { name: 'GraphQL', level: 72, color: '#E535AB' },
-      { name: 'PostgreSQL', level: 68, color: '#336791' },
+      { name: 'SupaBase', level: 75, color: '#494949' },
+      { name: 'GraphQL', level: 32, color: '#E535AB' },
+      { name: 'PostgreSQL', level: 55, color: '#336791' },
     ],
   },
   {
@@ -35,9 +36,9 @@ const CATEGORIES: Category[] = [
     skills: [
       { name: 'Radix UI', level: 91, color: '#7C3AED' },
       { name: 'shadcn/ui', level: 94, color: '#4F8EF7' },
-      { name: 'MUI', level: 82, color: '#007FFF' },
-      { name: 'Chakra UI', level: 80, color: '#319795' },
-      { name: 'Storybook', level: 77, color: '#FF4785' },
+      { name: 'MUI', level: 72, color: '#007FFF' },
+      { name: 'Ant Design', level: 80, color: '#319795' },
+      { name: 'Chakra UI', level: 77, color: '#FF4785' },
     ],
   },
   {
@@ -46,9 +47,9 @@ const CATEGORIES: Category[] = [
     skills: [
       { name: 'Git / GitHub', level: 96, color: '#F05032' },
       { name: 'Vercel', level: 94, color: '#A8ABBE' },
-      { name: 'Docker', level: 72, color: '#2496ED' },
+      { name: 'Docker', level: 42, color: '#2496ED' },
       { name: 'AWS (basics)', level: 65, color: '#FF9900' },
-      { name: 'Figma', level: 85, color: '#F24E1E' },
+      { name: 'Figma', level: 95, color: '#F24E1E' },
     ],
   },
   {
@@ -72,7 +73,9 @@ export default function SkillsSection() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
+      },
       { threshold: 0.1 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
@@ -83,7 +86,7 @@ export default function SkillsSection() {
     if (!visible) return;
     setAnimatedLevels(new Array(CATEGORIES[activeCat].skills.length).fill(0));
     const timeout = setTimeout(() => {
-      setAnimatedLevels(CATEGORIES[activeCat].skills.map(s => s.level));
+      setAnimatedLevels(CATEGORIES[activeCat].skills.map((s) => s.level));
     }, 100);
     return () => clearTimeout(timeout);
   }, [visible, activeCat]);
@@ -91,15 +94,12 @@ export default function SkillsSection() {
   const currentSkills = CATEGORIES[activeCat].skills;
 
   return (
-    <section
-      ref={sectionRef}
-      id="skills"
-      className="py-24 px-6 md:px-10 relative overflow-hidden"
-    >
+    <section ref={sectionRef} id="skills" className="py-24 px-6 md:px-10 relative overflow-hidden">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(79,142,247,0.03) 0%, transparent 70%)',
+          background:
+            'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(79,142,247,0.03) 0%, transparent 70%)',
         }}
       />
 
@@ -145,9 +145,7 @@ export default function SkillsSection() {
                 onClick={() => setActiveCat(i)}
                 className="w-full text-left px-5 py-4 rounded-xl transition-all duration-300 flex items-center gap-4"
                 style={{
-                  background: activeCat === i
-                    ? 'rgba(79,142,247,0.1)'
-                    : 'transparent',
+                  background: activeCat === i ? 'rgba(79,142,247,0.1)' : 'transparent',
                   border: `1px solid ${activeCat === i ? 'rgba(79,142,247,0.3)' : 'rgba(79,142,247,0.08)'}`,
                   boxShadow: activeCat === i ? '0 0 20px rgba(79,142,247,0.1)' : 'none',
                 }}
@@ -164,9 +162,7 @@ export default function SkillsSection() {
                     {cat.skills.length} technologies
                   </div>
                 </div>
-                {activeCat === i && (
-                  <div className="ml-auto w-1.5 h-1.5 rounded-full bg-primary" />
-                )}
+                {activeCat === i && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-primary" />}
               </button>
             ))}
           </div>
@@ -180,15 +176,16 @@ export default function SkillsSection() {
               transition: 'all 0.8s cubic-bezier(0.4,0,0.2,1) 0.3s',
             }}
           >
-            <div
-              className="glass-card rounded-2xl p-8"
-              style={{ minHeight: '360px' }}
-            >
+            <div className="glass-card rounded-2xl p-8" style={{ minHeight: '360px' }}>
               <div className="flex items-center gap-3 mb-8">
                 <span className="text-3xl">{CATEGORIES[activeCat].icon}</span>
                 <div>
-                  <h3 className="font-bold text-foreground text-lg">{CATEGORIES[activeCat].label}</h3>
-                  <p className="text-xs text-muted-foreground">Proficiency levels based on production usage</p>
+                  <h3 className="font-bold text-foreground text-lg">
+                    {CATEGORIES[activeCat].label}
+                  </h3>
+                  <p className="text-xs text-muted-foreground">
+                    Proficiency levels based on production usage
+                  </p>
                 </div>
               </div>
 
@@ -197,10 +194,7 @@ export default function SkillsSection() {
                   <div key={skill.name}>
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-sm font-medium text-foreground">{skill.name}</span>
-                      <span
-                        className="text-xs font-bold font-mono"
-                        style={{ color: skill.color }}
-                      >
+                      <span className="text-xs font-bold font-mono" style={{ color: skill.color }}>
                         {animatedLevels[i] ?? 0}%
                       </span>
                     </div>

@@ -15,7 +15,7 @@ type Project = {
   accentColor: string;
   image: string;
   imageAlt: string;
-  demo: string;
+  demo?: string;
   github: string;
   featured?: boolean;
   badge?: string;
@@ -65,7 +65,6 @@ const PROJECTS: Project[] = [
     image: '/assets/images/elegant-sound.png',
     imageAlt:
       'Dark music player interface with glowing purple waveform visualizer on black background',
-    demo: '#',
     github: 'https://github.com/Epic2077/elegant-sounds',
   },
   {
@@ -82,7 +81,6 @@ const PROJECTS: Project[] = [
     image: 'https://img.rocket.new/generatedImages/rocket_gen_img_1b2637a13-1772158027539.png',
     imageAlt:
       'Premium sneaker product shot on dark studio background with dramatic cyan side lighting',
-    demo: '#',
     github: 'https://github.com/Epic2077/TSX-Shoes',
   },
   {
@@ -98,8 +96,7 @@ const PROJECTS: Project[] = [
     image: 'https://images.unsplash.com/photo-1613068685650-fccf66365f29',
     imageAlt:
       'Dark code editor with syntax highlighted markdown text, split-screen preview on deep charcoal background',
-    demo: '#',
-    github: '#',
+    github: 'https://github.com/Epic2077/markDown-text-editor-react',
   },
   {
     id: 'vanilla-shoes',
@@ -114,8 +111,7 @@ const PROJECTS: Project[] = [
     image: 'https://images.unsplash.com/photo-1503710369-325f97ea6ffc',
     imageAlt:
       'Minimalist white sneaker on warm amber-toned studio background with soft dramatic shadows',
-    demo: '#',
-    github: '#',
+    github: 'https://github.com/Epic2077/Vanilla-Shoes',
     span: '',
   },
   {
@@ -131,7 +127,6 @@ const PROJECTS: Project[] = [
     image: 'https://images.unsplash.com/photo-1503710369-325f97ea6ffc',
     imageAlt:
       'Minimalist white sneaker on warm amber-toned studio background with soft dramatic shadows',
-    demo: '#',
     github: 'https://github.com/Epic2077/libria-cafe',
     span: '',
   },
@@ -436,16 +431,18 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
           </div>
 
           <div className="flex gap-4">
-            <a
-              href={project.demo}
-              className="btn-primary flex-1 text-center text-sm py-3 flex items-center justify-center gap-2"
-              style={{
-                background: `linear-gradient(135deg, ${project.color}, ${project.accentColor})`,
-              }}
-            >
-              <span>Live Demo</span>
-              <Icon name="ArrowTopRightOnSquareIcon" size={14} className="text-white" />
-            </a>
+            {project.demo && (
+              <a
+                href={project.demo}
+                className="btn-primary flex-1 text-center text-sm py-3 flex items-center justify-center gap-2"
+                style={{
+                  background: `linear-gradient(135deg, ${project.color}, ${project.accentColor})`,
+                }}
+              >
+                <span>Live Demo</span>
+                <Icon name="ArrowTopRightOnSquareIcon" size={14} className="text-white" />
+              </a>
+            )}
             <a
               href={project.github}
               className="btn-ghost flex-1 text-center text-sm py-3 flex items-center justify-center gap-2"
