@@ -26,11 +26,10 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   title: 'Epic2077 — Ashkan Sadeghi · Front-End Developer',
-  description: 'Mohammadhossein Ashkan Sadeghi — Front-End Developer specializing in React, Next.js & TypeScript. Building cinematic digital experiences from Shiraz, Iran.',
+  description:
+    'Mohammadhossein Ashkan Sadeghi — Front-End Developer specializing in React, Next.js & TypeScript. Building cinematic digital experiences from Shiraz, Iran.',
   icons: {
-    icon: [
-      { url: '/favicon.ico', type: 'image/x-icon' },
-    ],
+    icon: [{ url: '/favicon.ico', type: 'image/x-icon' }],
   },
   openGraph: {
     title: 'Epic2077 — Ashkan Sadeghi',
@@ -46,9 +45,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${dmSans.variable} ${fraunces.variable} dark`}>
-      <body className={`${dmSans.className} noise-overlay`}>
-        {children}
-</body>
+      <body className={`${dmSans.className} noise-overlay`}>{children}</body>
     </html>
   );
 }

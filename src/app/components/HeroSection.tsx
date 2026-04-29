@@ -79,7 +79,7 @@ export default function HeroSection() {
 
   // Terminal lines reveal
   useEffect(() => {
-    TERMINAL_LINES.forEach((line, i) => {
+    TERMINAL_LINES.forEach((line) => {
       setTimeout(() => {
         setTerminalLines((prev) => [...prev, line]);
       }, 2200 + line.delay);
