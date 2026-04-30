@@ -28,13 +28,16 @@ export const metadata: Metadata = {
   title: 'Epic2077 — Ashkan Sadeghi · Front-End Developer',
   description:
     'Mohammadhossein Ashkan Sadeghi — Front-End Developer specializing in React, Next.js & TypeScript. Building cinematic digital experiences from Shiraz, Iran.',
+  verification: {
+    google: '1VZgz9ZZXI3xl_O-GD6Rww9IPjzdETFFXx0SLx--xpA',
+  },
   icons: {
     icon: [{ url: '/favicon.ico', type: 'image/x-icon' }],
   },
   openGraph: {
     title: 'Epic2077 — Ashkan Sadeghi',
     description: 'Front-End Developer building exceptional digital experiences.',
-    images: [{ url: '/assets/images/app_logo.png', width: 1200, height: 630 }],
+    images: [{ url: '/assets/images/Ashkan.jpg', width: 1200, height: 630 }],
   },
 };
 
