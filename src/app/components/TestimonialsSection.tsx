@@ -21,7 +21,7 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     quote:
-      'One of the rare front-end developers who genuinely understands both performance and design. Working with him on Nova Star pushed our team to a higher bar.',
+      'One of the rare front-end developers who genuinely understands both performance and design. Working with him on Sonat pushed our team to a higher bar.',
     name: 'Colleague',
     role: 'Sonat',
     initials: 'PC',
