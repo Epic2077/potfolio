@@ -144,22 +144,29 @@ export default function AboutSection() {
           >
             {/* Profile visual */}
             <div
-              className="relative rounded-2xl overflow-hidden aspect-video mb-8"
-              style={{ border: '1px solid rgba(79,142,247,0.15)' }}
+              className="relative rounded-2xl overflow-hidden mb-8 aspect-[5/5] max-h-80 sm:max-h-80 lg:max-h-none lg:aspect-[6/7] mx-auto lg:mx-0"
+              style={{
+                border: '1px solid rgba(79,142,247,0.2)',
+                boxShadow: '0 0 40px rgba(79,142,247,0.08), 0 0 80px rgba(124,58,237,0.05)',
+                background: 'linear-gradient(160deg, #07091c 0%, #0c0a1e 50%, #060d1a 100%)',
+              }}
             >
               <AppImage
-                src="https://images.unsplash.com/photo-1609359217292-c910017fa3a8"
-                alt="Dark workspace with multiple monitors showing code in a dimly lit room with blue LED lighting"
+                src="/assets/images/Ashkan.png"
+                alt="Ashkan Sadeghi — Front-End Developer"
                 fill
                 className="object-cover"
+                style={{ objectPosition: '50% 50%' }}
+                quality={95}
                 priority
               />
 
+              {/* Colour-grade overlay: darkens edges, adds blue-purple tint to blend snowy bg */}
               <div
                 className="absolute inset-0"
                 style={{
                   background:
-                    'linear-gradient(135deg, rgba(5,5,8,0.4) 0%, transparent 60%, rgba(124,58,237,0.2) 100%)',
+                    'linear-gradient(180deg, rgba(5,5,14,0.25) 0%, transparent 30%, transparent 55%, rgba(5,5,14,0.75) 100%), radial-gradient(ellipse at 50% 0%, rgba(79,142,247,0.1) 0%, transparent 60%), radial-gradient(ellipse at 100% 100%, rgba(124,58,237,0.15) 0%, transparent 50%)',
                 }}
               />
 
@@ -170,24 +177,24 @@ export default function AboutSection() {
             </div>
 
             {/* Trait cards */}
-            <div className="grid grid-cols-2 gap-4">
-              {traits?.map((t, i) => (
-                <div
-                  key={t?.label}
-                  className="glass-card-hover rounded-xl p-4"
-                  style={{
-                    opacity: visible ? 1 : 0,
-                    transform: visible ? 'translateY(0)' : 'translateY(20px)',
-                    transition: `all 0.6s cubic-bezier(0.4,0,0.2,1) ${0.3 + i * 0.1}s`,
-                  }}
-                >
-                  <div className="text-2xl mb-2">{t?.icon}</div>
-                  <div className="text-sm font-bold text-foreground mb-1">{t?.label}</div>
-                  <div className="text-xs text-muted-foreground leading-relaxed">{t?.desc}</div>
-                </div>
-              ))}
-            </div>
           </div>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {traits?.map((t, i) => (
+            <div
+              key={t?.label}
+              className="glass-card-hover rounded-xl p-4"
+              style={{
+                opacity: visible ? 1 : 0,
+                transform: visible ? 'translateY(0)' : 'translateY(20px)',
+                transition: `all 0.6s cubic-bezier(0.4,0,0.2,1) ${0.3 + i * 0.1}s`,
+              }}
+            >
+              <div className="text-2xl mb-2">{t?.icon}</div>
+              <div className="text-sm font-bold text-foreground mb-1">{t?.label}</div>
+              <div className="text-xs text-muted-foreground leading-relaxed">{t?.desc}</div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

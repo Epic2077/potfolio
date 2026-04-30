@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
 
 const SPECIALTIES = ['React.js', 'Next.js', 'TypeScript', 'UI Engineering', 'AI Products'];
@@ -147,7 +148,7 @@ export default function HeroSection() {
       />
 
       {/* Main content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 pt-28 pb-20 w-full">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 md:pt-28 pb-16 md:pb-20 w-full">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left: Hero text */}
           <div className="space-y-8">
@@ -257,19 +258,43 @@ export default function HeroSection() {
               </div>
 
               {/* Terminal body */}
-              <div className="p-6 font-mono text-sm space-y-2 min-h-[280px]">
-                {terminalLines.map((line, i) => (
-                  <div key={i} className="flex items-center gap-1">
-                    <span style={{ color: line.color }}>{line.text}</span>
-                    {line.cursor && (
-                      <span className="terminal-cursor text-primary text-base">▋</span>
-                    )}
-                  </div>
-                ))}
+              <div className="relative p-6 font-mono text-sm min-h-[280px] overflow-hidden">
+                {/* Ghost portrait — digital painting engraved into the terminal glass */}
+                <Image
+                  src="/assets/images/ashkan2.jpg"
+                  alt=""
+                  fill
+                  className="object-cover pointer-events-none select-none"
+                  style={{
+                    objectPosition: '100% 40%',
+                    filter: 'invert(0) contrast(1.1) brightness(0.9)',
+                    opacity: 0.2,
+                    mixBlendMode: 'screen',
+                  }}
+                />
+                {/* Fade toward bottom so terminal text stays crisp */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background:
+                      'linear-gradient(to bottom, transparent 15%, rgba(8,8,18,0.55) 55%, rgba(8,8,18,0.96) 82%)',
+                  }}
+                />
+                {/* Content raised above overlays */}
+                <div className="relative z-10 space-y-2">
+                  {terminalLines.map((line, i) => (
+                    <div key={i} className="flex items-center gap-1">
+                      <span style={{ color: line.color }}>{line.text}</span>
+                      {line.cursor && (
+                        <span className="terminal-cursor text-primary text-base">▋</span>
+                      )}
+                    </div>
+                  ))}
 
-                {terminalLines.length === 0 && (
-                  <div className="text-muted-foreground text-xs">Connecting to Nova Star...</div>
-                )}
+                  {terminalLines.length === 0 && (
+                    <div className="text-muted-foreground text-xs">Connecting to Nova Star...</div>
+                  )}
+                </div>
               </div>
 
               {/* Nova Star badge */}

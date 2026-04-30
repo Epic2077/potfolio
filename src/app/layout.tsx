@@ -114,7 +114,7 @@ const personJsonLd = {
   image: `${SITE_URL}/assets/images/Ashkan.jpg`,
   worksFor: {
     '@type': 'Organization',
-    name: 'Maktab Sharif',
+    name: '',
   },
   knowsAbout: [
     'React',
