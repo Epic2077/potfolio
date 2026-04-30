@@ -2,6 +2,8 @@
 
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
+import AnimatedNumber from '@/app/components/AnimatedNumber';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 const SPECIALTIES = ['React.js', 'Next.js', 'TypeScript', 'UI Engineering', 'AI Products'];
 
@@ -17,9 +19,11 @@ export default function HeroSection() {
   const [specialtyIdx, setSpecialtyIdx] = useState(0);
   const [terminalLines, setTerminalLines] = useState<typeof TERMINAL_LINES>([]);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const reducedMotion = useReducedMotion();
 
   // Animated grid canvas
   useEffect(() => {
+    if (reducedMotion) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -76,7 +80,7 @@ export default function HeroSection() {
       cancelAnimationFrame(rafId);
       window.removeEventListener('resize', resize);
     };
-  }, []);
+  }, [reducedMotion]);
 
   // Terminal lines reveal
   useEffect(() => {
@@ -97,6 +101,7 @@ export default function HeroSection() {
 
   // Parallax mouse
   useEffect(() => {
+    if (reducedMotion) return;
     const onMove = (e: MouseEvent) => {
       setMousePos({
         x: (e.clientX / window.innerWidth - 0.5) * 20,
@@ -105,7 +110,7 @@ export default function HeroSection() {
     };
     window.addEventListener('mousemove', onMove);
     return () => window.removeEventListener('mousemove', onMove);
-  }, []);
+  }, [reducedMotion]);
 
   const handleScroll = (id: string) => {
     const el = document.querySelector(id);
@@ -204,17 +209,36 @@ export default function HeroSection() {
               <button onClick={() => handleScroll('#contact')} className="btn-ghost">
                 Contact Me
               </button>
+              <a
+                href="/assets/Ashkan-resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost inline-flex items-center gap-2"
+              >
+                <span>Download CV</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </a>
             </div>
 
             {/* Stats */}
             <div className="flex gap-8 pt-4 border-t border-border">
               {[
-                { num: '4+', label: 'Years Experience' },
-                { num: '12+', label: 'Projects Shipped' },
-                { num: '4', label: 'Companies' },
+                { num: 4, suffix: '+', label: 'Years Experience' },
+                { num: 12, suffix: '+', label: 'Projects Shipped' },
+                { num: 4, suffix: '', label: 'Companies' },
               ].map((stat) => (
                 <div key={stat.label}>
-                  <div className="font-display text-2xl font-bold gradient-text">{stat.num}</div>
+                  <div className="font-display text-2xl font-bold gradient-text">
+                    <AnimatedNumber value={stat.num} suffix={stat.suffix} />
+                  </div>
                   <div className="text-xs text-muted-foreground mt-0.5">{stat.label}</div>
                 </div>
               ))}

@@ -136,6 +136,33 @@ export default function ProjectsSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
   const [activeProject, setActiveProject] = useState<Project | null>(null);
+  const [activeFilter, setActiveFilter] = useState<string>('All');
+
+  // Build a stable, deduped list of filter chips from the actual projects.
+  // We bucket related variants together (e.g. Next.js 15 + Next.js 16 -> 'Next.js') for cleaner UX.
+  const filterTags = React.useMemo(() => {
+    const set = new Set<string>();
+    for (const p of PROJECTS) {
+      for (const t of p.tech) {
+        const norm = t.replace(/\s*\d+(\.\d+)?$/, '').trim();
+        set.add(norm);
+      }
+    }
+    const priority = ['Next.js', 'React', 'TypeScript', 'JavaScript', 'Tailwind'];
+    const all = Array.from(set);
+    const ordered = [
+      ...priority.filter((p) => all.includes(p)),
+      ...all.filter((t) => !priority.includes(t)).sort(),
+    ];
+    return ['All', ...ordered];
+  }, []);
+
+  const visibleProjects = React.useMemo(() => {
+    if (activeFilter === 'All') return PROJECTS;
+    return PROJECTS.filter((p) =>
+      p.tech.some((t) => t.replace(/\s*\d+(\.\d+)?$/, '').trim() === activeFilter)
+    );
+  }, [activeFilter]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -197,6 +224,41 @@ export default function ProjectsSection() {
           </div>
         </div>
 
+        {/* Tech filter chips */}
+        <div
+          className="flex flex-wrap gap-2 mb-10"
+          role="tablist"
+          aria-label="Filter projects by technology"
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'all 0.7s cubic-bezier(0.4,0,0.2,1) 0.15s',
+          }}
+        >
+          {filterTags.map((tag) => {
+            const isActive = tag === activeFilter;
+            return (
+              <button
+                key={tag}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setActiveFilter(tag)}
+                className="px-4 py-1.5 text-xs font-bold rounded-full transition-all duration-200"
+                style={{
+                  background: isActive ? 'rgba(79,142,247,0.15)' : 'transparent',
+                  border: isActive
+                    ? '1px solid rgba(79,142,247,0.45)'
+                    : '1px solid rgba(79,142,247,0.15)',
+                  color: isActive ? '#4F8EF7' : 'rgba(232,234,240,0.65)',
+                }}
+              >
+                {tag}
+              </button>
+            );
+          })}
+        </div>
+
         {/* BENTO GRID AUDIT:
               Array has 5 cards: [NovaStar, ElegantSounds, TSXShoes, MarkdownEditor, VanillaShoes]
               Row 1: [col-1 to col-2: NovaStar cs-2 rs-1] [col-3: ElegantSounds cs-1]
@@ -204,7 +266,7 @@ export default function ProjectsSection() {
               Placed 5/5 cards ✓
            */}
         <div className="grid lg:grid-cols-3 gap-5">
-          {PROJECTS.map((project, i) => (
+          {visibleProjects.map((project, i) => (
             <ProjectCard
               key={project.id}
               project={project}
@@ -213,6 +275,11 @@ export default function ProjectsSection() {
               onClick={() => setActiveProject(project)}
             />
           ))}
+          {visibleProjects.length === 0 && (
+            <div className="col-span-full text-center py-16 text-sm text-muted-foreground">
+              No projects match this filter yet.
+            </div>
+          )}
         </div>
       </div>
 

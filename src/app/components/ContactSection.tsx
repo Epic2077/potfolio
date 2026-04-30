@@ -28,8 +28,15 @@ const SOCIAL_LINKS = [
 export default function ContactSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
-  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
-  const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+    website: '', // honeypot
+  });
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [error, setError] = useState<string>('');
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -42,11 +49,27 @@ export default function ContactSection() {
     return () => observer.disconnect();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('sending');
-    // Mock submit handler — connect to backend/email service here
-    setTimeout(() => setStatus('sent'), 1800);
+    setError('');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setError(data?.error || 'Failed to send. Please try again.');
+        setStatus('error');
+        return;
+      }
+      setStatus('sent');
+    } catch {
+      setError('Network error. Please check your connection and try again.');
+      setStatus('error');
+    }
   };
 
   const inputStyle: React.CSSProperties = {
@@ -187,7 +210,7 @@ export default function ContactSection() {
                 <button
                   onClick={() => {
                     setStatus('idle');
-                    setForm({ name: '', email: '', subject: '', message: '' });
+                    setForm({ name: '', email: '', subject: '', message: '', website: '' });
                   }}
                   className="mt-8 btn-ghost text-sm px-6 py-3"
                 >
@@ -200,6 +223,23 @@ export default function ContactSection() {
                 className="glass-card rounded-2xl p-8 space-y-5"
                 style={{ border: '1px solid rgba(79,142,247,0.15)' }}
               >
+                {/* Honeypot — hidden from users, visible to bots */}
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  value={form.website}
+                  onChange={(e) => setForm((f) => ({ ...f, website: e.target.value }))}
+                  style={{
+                    position: 'absolute',
+                    left: '-9999px',
+                    width: '1px',
+                    height: '1px',
+                    opacity: 0,
+                  }}
+                />
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="section-label block mb-2">Name</label>
@@ -284,6 +324,20 @@ export default function ContactSection() {
                     }}
                   />
                 </div>
+
+                {status === 'error' && error && (
+                  <div
+                    role="alert"
+                    className="rounded-xl px-4 py-3 text-xs"
+                    style={{
+                      background: 'rgba(239,68,68,0.08)',
+                      border: '1px solid rgba(239,68,68,0.3)',
+                      color: '#FCA5A5',
+                    }}
+                  >
+                    {error}
+                  </div>
+                )}
 
                 <button
                   type="submit"

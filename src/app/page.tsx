@@ -6,10 +6,13 @@ import AboutSection from '@/app/components/AboutSection';
 import SkillsSection from '@/app/components/SkillsSection';
 import ProjectsSection from '@/app/components/ProjectsSection';
 import ExperienceSection from '@/app/components/ExperienceSection';
+import TestimonialsSection from '@/app/components/TestimonialsSection';
 import ContactSection from '@/app/components/ContactSection';
 import NovaStarOrb from '@/app/components/NovaStarOrb';
 import CustomCursor from '@/app/components/CustomCursor';
 import LoadingScreen from '@/app/components/LoadingScreen';
+import ScrollToTop from '@/app/components/ScrollToTop';
+import CommandPalette from '@/app/components/CommandPalette';
 
 export default function HomePage() {
   return (
@@ -17,14 +20,17 @@ export default function HomePage() {
       <LoadingScreen />
       <CustomCursor />
       <NovaStarOrb />
+      <CommandPalette />
       <Header />
       <HeroSection />
       <AboutSection />
       <SkillsSection />
       <ProjectsSection />
       <ExperienceSection />
+      <TestimonialsSection />
       <ContactSection />
       <Footer />
+      <ScrollToTop />
     </main>
   );
 }

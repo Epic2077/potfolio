@@ -3,27 +3,75 @@
 import React, { useEffect, useState } from 'react';
 import AppLogo from '@/components/ui/AppLogo';
 
+const SKIP_KEY = 'epic2077:loaded';
+
 export default function LoadingScreen() {
   const [progress, setProgress] = useState(0);
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [exiting, setExiting] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
+  // After mount, decide if we should show the screen at all (skip on repeat visits)
   useEffect(() => {
+    setMounted(true);
+    if (typeof window === 'undefined') return;
+    try {
+      if (sessionStorage.getItem(SKIP_KEY) === '1') {
+        setVisible(false);
+        return;
+      }
+    } catch {
+      // ignore storage errors (private mode etc)
+    }
+    setVisible(true);
+  }, []);
+
+  // Progress animation
+  useEffect(() => {
+    if (!visible) return;
     const interval = setInterval(() => {
       setProgress((p) => {
         if (p >= 100) {
           clearInterval(interval);
           setTimeout(() => setExiting(true), 300);
-          setTimeout(() => setVisible(false), 900);
+          setTimeout(() => {
+            setVisible(false);
+            try {
+              sessionStorage.setItem(SKIP_KEY, '1');
+            } catch {
+              // ignore
+            }
+          }, 900);
           return 100;
         }
         return p + Math.random() * 18;
       });
     }, 120);
     return () => clearInterval(interval);
-  }, []);
+  }, [visible]);
 
-  if (!visible) return null;
+  // Escape to skip
+  useEffect(() => {
+    if (!visible) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setProgress(100);
+        setExiting(true);
+        setTimeout(() => {
+          setVisible(false);
+          try {
+            sessionStorage.setItem(SKIP_KEY, '1');
+          } catch {
+            // ignore
+          }
+        }, 400);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [visible]);
+
+  if (!mounted || !visible) return null;
 
   return (
     <div
@@ -75,6 +123,25 @@ export default function LoadingScreen() {
           <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
           LOADING SYSTEMS — {Math.min(Math.round(progress), 100)}%
         </div>
+
+        <button
+          type="button"
+          onClick={() => {
+            setProgress(100);
+            setExiting(true);
+            setTimeout(() => {
+              setVisible(false);
+              try {
+                sessionStorage.setItem(SKIP_KEY, '1');
+              } catch {
+                // ignore
+              }
+            }, 400);
+          }}
+          className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground hover:text-primary transition-colors"
+        >
+          Press ESC to skip
+        </button>
       </div>
 
       {/* Scan line */}
