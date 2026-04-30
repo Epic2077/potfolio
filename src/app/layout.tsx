@@ -111,7 +111,7 @@ const personJsonLd = {
   description:
     'Front-End Developer specializing in React, Next.js, and TypeScript. Personal portfolio of Ashkan Sadeghi (Mohammadhossein Sadeghi).',
   url: SITE_URL,
-  image: `${SITE_URL}/assets/images/Ashkan.jpg`,
+  image: `${SITE_URL}/assets/images/Ashkan.png`,
   worksFor: {
     '@type': 'Organization',
     name: '',
