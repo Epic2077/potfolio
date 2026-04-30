@@ -82,7 +82,7 @@ export const metadata: Metadata = {
       'Personal portfolio of Ashkan Sadeghi (Mohammadhossein Sadeghi) — Front-End Developer building exceptional digital experiences with React, Next.js & TypeScript.',
     images: [
       {
-        url: '/assets/images/Ashkan.jpg',
+        url: '/assets/images/Ashkan.png',
         width: 1200,
         height: 630,
         alt: 'Ashkan Sadeghi — Front-End Developer',
@@ -94,7 +94,7 @@ export const metadata: Metadata = {
     title: 'Ashkan Sadeghi — Front-End Developer | Epic2077',
     description:
       'Personal portfolio of Ashkan Sadeghi (Mohammadhossein Sadeghi) — Front-End Developer · React · Next.js · TypeScript.',
-    images: ['/assets/images/Ashkan.jpg'],
+    images: ['/assets/images/Ashkan.png'],
   },
   category: 'technology',
 };
