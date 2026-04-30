@@ -153,7 +153,7 @@ export default function HeroSection() {
       />
 
       {/* Main content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 md:pt-28 pb-16 md:pb-20 w-full">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 pt-10 md:pt-28 pb-16 md:pb-20 w-full">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left: Hero text */}
           <div className="space-y-8">
