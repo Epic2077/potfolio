@@ -118,16 +118,17 @@ const PROJECTS: Project[] = [
   {
     id: 'libria-cafe',
     title: 'Libria Cafe',
-    subtitle: 'Pure JS Showcase',
-    problem: "Proving that you don't need a framework to build something beautiful.",
+    subtitle: 'Cafe with nextJS',
+    problem:
+      'Showcasing a cafe website built with Next.js, demonstrating modern web development techniques and design principles.',
     description:
-      'A fully animated e-commerce product page built with zero frameworks — pure HTML, CSS, and JavaScript. A love letter to web fundamentals.',
-    tech: ['Next.js', 'CSS Animations', 'HTML5', 'GSAP'],
+      "A visually stunning and highly functional cafe website built using Next.js. This project serves as a showcase of modern web development techniques, including server-side rendering, dynamic routing, and responsive design. The website features an elegant design that captures the cozy and inviting atmosphere of a cafe, while also providing users with an intuitive interface to explore the menu, make reservations, and learn about the cafe's story.",
+    tech: ['Next.js', 'Tailwind', 'motion', 'TypeScript'],
     color: '#F59E0B',
     accentColor: '#06B6D4',
     image: '/assets/images/libria.png',
     imageAlt:
-      'Minimalist white sneaker on warm amber-toned studio background with soft dramatic shadows',
+      'Cozy cafe website with warm color palette, featuring a welcoming homepage, menu page with delicious offerings, and an about page sharing the cafe’s story, all built with Next.js and Tailwind CSS.',
     github: 'https://github.com/Epic2077/libria-cafe',
     span: '',
   },
