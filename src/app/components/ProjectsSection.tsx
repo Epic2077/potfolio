@@ -78,7 +78,8 @@ const PROJECTS: Project[] = [
     tech: ['React', 'TypeScript', 'Redux', 'Tailwind', 'Axios', 'Vite'],
     color: '#06B6D4',
     accentColor: '#4F8EF7',
-    image: 'https://img.rocket.new/generatedImages/rocket_gen_img_1b2637a13-1772158027539.png',
+    image:
+      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8fDA%3D',
     imageAlt:
       'Premium sneaker product shot on dark studio background with dramatic cyan side lighting',
     github: 'https://github.com/Epic2077/TSX-Shoes',
@@ -93,7 +94,7 @@ const PROJECTS: Project[] = [
     tech: ['React', 'TypeScript', 'CodeMirror', 'Remark', 'Tailwind'],
     color: '#4F8EF7',
     accentColor: '#7C3AED',
-    image: 'https://images.unsplash.com/photo-1613068685650-fccf66365f29',
+    image: '/assets/images/text-editor.png',
     imageAlt:
       'Dark code editor with syntax highlighted markdown text, split-screen preview on deep charcoal background',
     github: 'https://github.com/Epic2077/markDown-text-editor-react',
@@ -124,7 +125,7 @@ const PROJECTS: Project[] = [
     tech: ['Next.js', 'CSS Animations', 'HTML5', 'GSAP'],
     color: '#F59E0B',
     accentColor: '#06B6D4',
-    image: 'https://images.unsplash.com/photo-1503710369-325f97ea6ffc',
+    image: '/assets/images/libria.png',
     imageAlt:
       'Minimalist white sneaker on warm amber-toned studio background with soft dramatic shadows',
     github: 'https://github.com/Epic2077/libria-cafe',
