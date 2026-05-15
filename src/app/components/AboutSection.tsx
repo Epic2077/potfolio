@@ -153,7 +153,7 @@ export default function AboutSection() {
             >
               <AppImage
                 src="/assets/images/Ashkan.png"
-                alt="Ashkan Sadeghi — Front-End Developer"
+                alt="Ashkan Sadeghi Developer"
                 fill
                 className="object-cover"
                 style={{ objectPosition: '50% 50%' }}
