@@ -19,7 +19,7 @@ const fraunces = Fraunces({
   display: 'swap',
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://ashkansadeghi.vercel.app/";
 
 export const viewport: Viewport = {
   width: 'device-width',
