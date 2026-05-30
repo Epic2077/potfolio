@@ -2,7 +2,10 @@ import { MetadataRoute } from 'next';
 
 const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL || 'https://ashkansadeghi.vercel.app'
-).replace(/\/$/, '');
+).replace(
+  /\/$/,
+  ''
+);
 
 /**
  * Next.js will serve this at: /sitemap.xml
